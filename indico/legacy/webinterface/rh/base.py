@@ -529,13 +529,13 @@ class RHDisplayBaseProtected(RHProtected):
 
 class RHModificationBaseProtected(RHProtected):
     ALLOW_LOCKED = False
-    ROLE = None
+    PERMISSION = None
 
     def _check_access(self):
         if not isinstance(self._target, LegacyConference):
             raise Exception('Unexpected object')
         event = self._target.as_event
-        if not event.can_manage(session.user, role=self.ROLE):
+        if not event.can_manage(session.user, permission=self.PERMISSION):
             if session.user is None:
                 self._checkSessionUser()
             else:
